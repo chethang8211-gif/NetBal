@@ -1,30 +1,28 @@
-# Personal Expense & Money Tracker
+# NetBal — Smart Personal Finance & Receivables Engine
 
-A private, synchronized personal finance web application built strictly according to specification.
+A modern, offline-first personal finance web application built for freelancers and multi-account holders.
 
-Designed to track accounts across **Slice**, **SBI**, and **Kotak** with real-time balance calculations, natural-language quick entry, investment tracking, monthly expense budgeting, interactive charts, comprehensive reports, and cloud synchronization.
+Designed to track liquid bank accounts (**Slice**, **SBI**, **Kotak**) alongside **pending freelance receivables** and **personal loans** with real-time net worth calculation, natural-language quick entry, automated 1-click settlement, investment tracking, monthly expense budgeting, and multi-device cloud synchronization.
 
 ---
 
 ## 🌟 Key Features & Requirements Matrix
 
-### 1. Accounts & Exact Balances
-- **Three Default Accounts**:
-  - **Slice**: Primary UPI payment account (Starting balance: ₹0)
-  - **SBI**: Mainly used for receiving money/income (Starting balance: ₹0)
-  - **Kotak**: Mainly used for debit-card transactions (Starting balance: ₹0)
-- **Account Customization**: Change account names, purposes, and starting balances at any time in **Settings**, or add new accounts.
-- **Overall Available Balance**: Exact real-time sum:
-  $$\text{Overall Balance} = \text{Slice Balance} + \text{SBI Balance} + \text{Kotak Balance}$$
-- **Deterministic Balance Formula**:
+### 1. 3-Tier Balance Architecture
+- **Total Net Balance (NetBal)**:
+  $$\text{NetBal} = \text{Current Cash Available} + \text{Pending Receivables}$$
+- **Current Cash Available**: Exact real-time liquid balance ready to use across your bank accounts (Slice, SBI, Kotak).
+- **Need to Receive**: Pending receivables from freelance clients and personal loans awaiting settlement.
+- **Account Balance Formula**:
   $$\text{Account Balance} = \text{Starting Balance} + \text{Received} - \text{Spent} - \text{Invested} + \text{Transfers In} - \text{Transfers Out}$$
-  *Internal transfers move money between your accounts and do not alter the overall available balance.*
 
 ### 2. Transaction Types
-- **Spent**: Decreases the selected account and overall balance.
-- **Received**: Increases the selected account and overall balance.
-- **Invested**: Decreases available account balance and records the amount separately as an investment contribution.
-- **Transfer**: Moves funds from one account to another (`From Account` $\rightarrow$ `To Account`). Does not count as spending or income. Transferring to the same account is prevented.
+- **Spent**: Decreases the selected account and overall cash balance.
+- **Received**: Increases the selected account and overall cash balance.
+- **Work / Client Due**: Tracks pending freelance project payments. **No money is deducted from bank accounts** upfront. Adds to "Need to Receive" and "NetBal". Clicking **"Collect"** automatically deposits the money into your chosen bank.
+- **People Owe Me (Lent)**: Deducts money from the paying account today and tracks repayment. Clicking **"Settle"** deposits repayment back into your account.
+- **Invested**: Decreases available account balance and records the contribution separately in your investment portfolio.
+- **Transfer**: Moves funds between accounts (`From Account` $\rightarrow$ `To Account`). Transferring to the same account is prevented.
 
 ### 3. Natural-Language Quick Entry
 Type natural sentences in the **Quick Entry** box:

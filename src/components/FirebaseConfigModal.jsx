@@ -60,7 +60,7 @@ export function FirebaseConfigModal({ isOpen, onClose }) {
 
 
   const sampleFirebaseConfig = `{
-  "apiKey": "AIzaSy...",
+  "apiKey": "YOUR_API_KEY",
   "authDomain": "your-app.firebaseapp.com",
   "projectId": "your-app-id",
   "storageBucket": "your-app.firebasestorage.app",

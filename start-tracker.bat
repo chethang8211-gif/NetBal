@@ -1,8 +1,8 @@
 @echo off
-title Personal Expense Tracker Server
-cd /d J:\Chethan\tracker
+title NetBal Server
+cd /d "%~dp0"
 echo ===================================================
-echo     Starting Personal Expense & Money Tracker
+echo             Starting NetBal Server
 echo ===================================================
 echo.
 echo Opening app in your browser at http://localhost:5173 ...

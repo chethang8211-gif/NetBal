@@ -2,17 +2,6 @@ import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
-const DEFAULT_FIREBASE_CONFIG = {
-  apiKey: "AIzaSyDrYLILdDHLuw7xaQB61wgIgeWIAXUX_Bw",
-  authDomain: "tracker-24c57.firebaseapp.com",
-  projectId: "tracker-24c57",
-  storageBucket: "tracker-24c57.firebasestorage.app",
-  messagingSenderId: "769751382871",
-  appId: "1:769751382871:web:b6ab75c0c973b2b3d29c12",
-  measurementId: "G-437XGT20YW"
-};
-
-
 /**
  * Retrieves Firebase configuration from environment or localStorage
  */
@@ -22,10 +11,7 @@ export function getFirebaseConfig() {
     const savedConfig = localStorage.getItem('tracker_firebase_config');
     if (savedConfig) {
       const parsed = JSON.parse(savedConfig);
-      // Discard invalid or outdated keys
-      if (!parsed.apiKey || parsed.apiKey.includes('...') || parsed.apiKey !== DEFAULT_FIREBASE_CONFIG.apiKey) {
-        localStorage.removeItem('tracker_firebase_config');
-      } else if (parsed.apiKey && parsed.apiKey.length > 20 && parsed.projectId) {
+      if (parsed.apiKey && parsed.apiKey.length > 20 && parsed.projectId) {
         return parsed;
       }
     }
@@ -33,9 +19,7 @@ export function getFirebaseConfig() {
     console.error('Error reading saved firebase config:', err);
   }
 
-
-
-  // 2. Check Vite environment variables
+  // 2. Check Vite environment variables (from local .env)
   if (import.meta.env.VITE_FIREBASE_API_KEY && import.meta.env.VITE_FIREBASE_PROJECT_ID) {
     return {
       apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -44,11 +28,12 @@ export function getFirebaseConfig() {
       storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
       messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
       appId: import.meta.env.VITE_FIREBASE_APP_ID,
+      measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
     };
   }
 
-  // 3. Project default configuration (auto-connected for all devices)
-  return DEFAULT_FIREBASE_CONFIG;
+  // 3. Fallback to null (runs safely in offline/local storage mode)
+  return null;
 }
 
 
